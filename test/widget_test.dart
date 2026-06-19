@@ -4,7 +4,7 @@ import 'package:flappy_bird_game/main.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Flappy Bird game widget smoke test', (WidgetTester tester) async {
+  testWidgets('Flappy Bird Pro game widget smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 

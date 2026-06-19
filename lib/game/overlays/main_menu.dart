@@ -72,7 +72,7 @@ class _MainMenuState extends State<MainMenu>
                 children: [
                   // Game Logo Title
                   Text(
-                    'FLAPPY BIRD',
+                    'FLAPPY BIRD PRO',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 36.0,
