@@ -18,26 +18,31 @@ class HUD extends StatelessWidget {
             color: Colors.black.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(20.0),
           ),
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 150),
-            transitionBuilder: (child, animation) =>
-                ScaleTransition(scale: animation, child: child),
-            child: Text(
-              '${game.score}',
-              key: ValueKey<int>(game.score),
-              style: const TextStyle(
-                fontSize: 48.0,
-                fontWeight: FontWeight.w900,
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    blurRadius: 6.0,
-                    color: Colors.black45,
-                    offset: Offset(0, 3),
+          child: ValueListenableBuilder<int>(
+            valueListenable: game.scoreNotifier,
+            builder: (context, score, child) {
+              return AnimatedSwitcher(
+                duration: const Duration(milliseconds: 150),
+                transitionBuilder: (child, animation) =>
+                    ScaleTransition(scale: animation, child: child),
+                child: Text(
+                  '$score',
+                  key: ValueKey<int>(score),
+                  style: const TextStyle(
+                    fontSize: 48.0,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 6.0,
+                        color: Colors.black45,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),

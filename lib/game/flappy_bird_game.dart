@@ -1,5 +1,7 @@
+import 'dart:math';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/foundation.dart';
 import 'components/background.dart';
 import 'components/bird.dart';
 import 'components/ground.dart';
@@ -8,12 +10,15 @@ import 'components/pipe.dart';
 enum GameState { mainMenu, playing, gameOver }
 
 class FlappyBirdGame extends FlameGame with HasCollisionDetection, TapCallbacks {
+  final Random _random = Random();
   late Bird bird;
   late Ground ground;
   late Background background;
   
   GameState state = GameState.mainMenu;
-  int score = 0;
+  final ValueNotifier<int> scoreNotifier = ValueNotifier<int>(0);
+  int get score => scoreNotifier.value;
+  set score(int value) => scoreNotifier.value = value;
   int highScore = 0;
 
   double pipeSpawnTimer = 0.0;
@@ -64,7 +69,7 @@ class FlappyBirdGame extends FlameGame with HasCollisionDetection, TapCallbacks 
 
     final maxOffset = playableHeight - gapSize - (minPadding * 2);
     // Random height for the top pipe
-    final randomOffset = minPadding + (maxOffset.isNaN || maxOffset <= 0 ? 0.0 : (DateTime.now().microsecond / 1000000.0) * maxOffset);
+    final randomOffset = minPadding + (maxOffset.isNaN || maxOffset <= 0 ? 0.0 : _random.nextDouble() * maxOffset);
 
     final topPipeY = randomOffset;
     final bottomPipeY = randomOffset + gapSize;
